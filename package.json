@@ -1,0 +1,48 @@
+{
+  "name": "quasar-project",
+  "version": "0.0.1",
+  "description": "A Quasar Project",
+  "productName": "Quasar App",
+  "author": "Nils Mundhenke <nils.mundhenke@tu-darmstadt.de>",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.ts,.vue ./",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@feathersjs/authentication-client": "^5.0.0-pre.38",
+    "@feathersjs/feathers": "^5.0.0-pre.38",
+    "@feathersjs/socketio-client": "^5.0.0-pre.38",
+    "@quasar/extras": "^1.16.1",
+    "@vueuse/core": "^9.13.0",
+    "feathers-hooks-common": "^7.0.1",
+    "feathers-pinia": "^2.0.0-pre.17",
+    "pinia": "^2.0.33",
+    "quasar": "^2.11.9",
+    "socket.io-client": "^4.6.1",
+    "unplugin-auto-import": "^0.15.2",
+    "vue": "^3.2.47",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^6.0.3",
+    "@quasar/app-vite": "^1.2.1",
+    "@types/node": "^18.15.10",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.36.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.10.0",
+    "typescript": "^5.0.2"
+  },
+  "engines": {
+    "node": "^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
