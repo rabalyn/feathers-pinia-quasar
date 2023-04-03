@@ -2,7 +2,7 @@
   <q-item
     clickable
     tag="a"
-    target="_blank"
+    :target="link.includes('https://') ? '_blank' : ''"
     :href="link"
   >
     <q-item-section
@@ -14,7 +14,9 @@
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label caption>
+        {{ caption }}
+      </q-item-label>
     </q-item-section>
   </q-item>
 </template>

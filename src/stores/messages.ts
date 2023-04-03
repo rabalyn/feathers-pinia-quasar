@@ -1,8 +1,8 @@
-// stores/users.ts
+// stores/messages.ts
 import { defineStore } from 'pinia'
 
-export const useUserStore = () => {
-  const { pinia, idField, whitelist, servicePath, service, name } = useUsersConfig()
+export const useMessageStore = () => {
+  const { pinia, idField, whitelist, servicePath, service, name } = useMessagesConfig()
 
   const useStore = defineStore(servicePath, () => {
     const utils = useService({ service, idField, whitelist })

@@ -22,19 +22,25 @@
         :rules="[ val => val && val.length > 0 || 'Please type something']"
       />
 
-      <div>
-        <q-btn
-          label="Login"
-          type="submit"
-          color="primary"
-          @click.prevent="submit"
-        />
-      </div>
+      <q-btn
+        label="Register"
+        type="submit"
+        color="primary"
+        @click.prevent="register(state)"
+      />
+
+      <q-btn
+        label="Login"
+        type="submit"
+        color="primary"
+        @click.prevent="submit"
+      />
     </q-form>
   </q-page>
 </template>
 
 <script setup lang="ts">
+const User = useUserModel()
 const router = useRouter()
 const authStore = useAuthStore()
 const state = reactive({
@@ -51,5 +57,13 @@ const redirect = () => {
   const redirectTo = authStore.loginRedirect || '/chat'
   authStore.loginRedirect = null
   router.push(redirectTo)
+}
+
+async function register (state: {email: string, password: string}) {
+  await User.create({
+    email: state.email,
+    password: state.password
+  })
+  redirect()
 }
 </script>

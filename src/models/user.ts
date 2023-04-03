@@ -27,6 +27,7 @@ export const useUserModel = () => {
 
   onModelReady(name, () => {
     service.hooks({ around: { all: [...feathersPiniaHooks(Model)] } })
+    // syncWithStorage(useUserStore(), ['ids', 'itemsById'])
   })
   connectModel(name, () => Model, useUserStore)
 

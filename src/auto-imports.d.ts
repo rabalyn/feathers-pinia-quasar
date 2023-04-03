@@ -11,7 +11,6 @@ declare global {
   const $ref: typeof import('vue/macros')['$ref']
   const $shallowRef: typeof import('vue/macros')['$shallowRef']
   const $toRef: typeof import('vue/macros')['$toRef']
-  const BaseModel: typeof import('./stores/store.pinia')['BaseModel']
   const EffectScope: typeof import('vue')['EffectScope']
   const associateFind: typeof import('feathers-pinia')['associateFind']
   const associateGet: typeof import('feathers-pinia')['associateGet']
@@ -37,7 +36,6 @@ declare global {
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
-  const defineStore: typeof import('./stores/store.pinia')['defineStore']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
@@ -76,7 +74,6 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
-  const pinia: typeof import('./stores/store.pinia')['pinia']
   const provide: typeof import('vue')['provide']
   const reactify: typeof import('@vueuse/core')['reactify']
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject']
@@ -211,6 +208,9 @@ declare global {
   const useMediaQuery: typeof import('@vueuse/core')['useMediaQuery']
   const useMemoize: typeof import('@vueuse/core')['useMemoize']
   const useMemory: typeof import('@vueuse/core')['useMemory']
+  const useMessageModel: typeof import('./models/message')['useMessageModel']
+  const useMessageStore: typeof import('./stores/messages')['useMessageStore']
+  const useMessagesConfig: typeof import('./models/message')['useMessagesConfig']
   const useModel: typeof import('feathers-pinia')['useModel']
   const useMounted: typeof import('@vueuse/core')['useMounted']
   const useMouse: typeof import('@vueuse/core')['useMouse']
@@ -323,7 +323,6 @@ declare module 'vue' {
     readonly $ref: UnwrapRef<typeof import('vue/macros')['$ref']>
     readonly $shallowRef: UnwrapRef<typeof import('vue/macros')['$shallowRef']>
     readonly $toRef: UnwrapRef<typeof import('vue/macros')['$toRef']>
-    readonly BaseModel: UnwrapRef<typeof import('./stores/store.pinia')['BaseModel']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly associateFind: UnwrapRef<typeof import('feathers-pinia')['associateFind']>
     readonly associateGet: UnwrapRef<typeof import('feathers-pinia')['associateGet']>
@@ -349,7 +348,6 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
-    readonly defineStore: UnwrapRef<typeof import('./stores/store.pinia')['defineStore']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
@@ -388,7 +386,6 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
-    readonly pinia: UnwrapRef<typeof import('./stores/store.pinia')['pinia']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
     readonly reactifyObject: UnwrapRef<typeof import('@vueuse/core')['reactifyObject']>
@@ -523,6 +520,9 @@ declare module 'vue' {
     readonly useMediaQuery: UnwrapRef<typeof import('@vueuse/core')['useMediaQuery']>
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
+    readonly useMessageModel: UnwrapRef<typeof import('./models/message')['useMessageModel']>
+    readonly useMessageStore: UnwrapRef<typeof import('./stores/messages')['useMessageStore']>
+    readonly useMessagesConfig: UnwrapRef<typeof import('./models/message')['useMessagesConfig']>
     readonly useModel: UnwrapRef<typeof import('feathers-pinia')['useModel']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
     readonly useMouse: UnwrapRef<typeof import('@vueuse/core')['useMouse']>

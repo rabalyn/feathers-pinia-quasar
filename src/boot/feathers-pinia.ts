@@ -4,6 +4,6 @@ import { pinia } from '../modules/pinia'
 
 // @ts-expect-error initial test
 export default ({ app }) => {
-  app.use(api)
   app.use(pinia)
+  app.use(api)
 }

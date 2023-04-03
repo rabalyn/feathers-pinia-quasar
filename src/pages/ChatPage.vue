@@ -1,41 +1,46 @@
 <template>
   <q-page>
     <div>
-      <h1>Home</h1>
+      <div class="row q-pa-md">
+        <div class="col-3 height-85vh">
+          <span class="q-ma-md">Users ({{ usersTotal }}):</span>
+          <users-list />
+        </div>
 
-      <!-- List of users returned by userStore.useFind() -->
-      <ul>
-        <li
-          v-for="user in realUsers"
-          :key="user.id"
-        >
-          <q-card
-            class="m-1"
-          >
-            <q-img
-              :src="user.avatar"
-              spinner-color="white"
-              style="height: 140px; max-width: 150px"
-            >
-              <div class="absolute-bottom text-subtitle2 text-center">
-                {{ user.email }}
-              </div>
-            </q-img>
-          </q-card>
-        </li>
-      </ul>
+        <div class="col height-85vh">
+          <chat-messages />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3" />
+        <div class="col q-px-md">
+          <chat-composer />
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
+import UsersList from '../components/UsersList.vue'
+import ChatMessages from '../components/ChatMessages.vue'
+import ChatComposer from '../components/ChatComposer.vue'
+
 const User = useUserModel()
 
-// Find users with fall-through cache
-const { data: users } = User.useFind({ query: {}, onServer: true })
-const realUsers = computed(() => {
-  // @ts-expect-error initial test
-  return users.value.filter(x => x.email && x.avatar)
-})
+const usersTotal = ref(0)
 
+onMounted(async () => {
+  usersTotal.value = (await User.count()).total
+})
 </script>
+
+<style>
+.height-85vh {
+  height: 85vh;
+}
+
+.userlistContainer {
+  overflow: scroll;
+}
+</style>

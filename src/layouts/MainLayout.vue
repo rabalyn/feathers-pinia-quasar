@@ -31,6 +31,10 @@
           Essential Links
         </q-item-label>
 
+        <q-item-label>
+          <darkmode-toggle />
+        </q-item-label>
+
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
@@ -48,6 +52,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import DarkmodeToggle from 'src/components/DarkmodeToggle.vue'
 
 const linksList = [
   {
@@ -110,7 +115,8 @@ export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    EssentialLink,
+    DarkmodeToggle
   },
 
   setup () {
