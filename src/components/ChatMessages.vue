@@ -6,7 +6,8 @@
     Messages ({{ messageTotalCount }}):
     <q-scroll-area
       ref="scrollAreaRef"
-      class="q-pl-md"
+      class="q-px-md"
+      style="height: 100%"
     >
       <div
         v-for="message in messages"
