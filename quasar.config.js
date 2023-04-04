@@ -5,8 +5,6 @@
  * the ES6 features that are supported by your Node version. https://node.green/
  */
 
-const feathersPinia = require('feathers-pinia')
-const feathersPiniaAutoImport = feathersPinia.feathersPiniaAutoImport
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
@@ -89,8 +87,7 @@ module.exports = configure(function (/* ctx */) {
             'vue-i18n',
             'vue/macros',
             '@vueuse/head',
-            '@vueuse/core',
-            feathersPiniaAutoImport
+            '@vueuse/core'
           ],
           dts: 'src/auto-imports.d.ts',
           dirs: ['src/composables', 'src/models', 'src/stores'],

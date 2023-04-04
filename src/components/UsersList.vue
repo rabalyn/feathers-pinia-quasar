@@ -30,18 +30,26 @@
 
 <script setup lang="ts">
 import { User as TUser } from 'app/../../feathers-chat-ts/src/client'
+const { api } = useFeathers()
 
-const UserStore = useUserStore()
+const User = api.service('users')
 
 const userlistRef = ref()
 const users: TUser[] = reactive([])
 const sortedUsers = computed(() => users.sort((a, b) => a.email < b.email ? -1 : 1))
 
+const params = computed(() => {
+  return {
+    query: {
+      $limit: 10,
+      $skip: 0
+    }
+  }
+})
 // Set page size with $limit in the initial query
-const { data, next, find, canNext } = UserStore.useFind({ query: { $limit: 10, $skip: 0 }, watch: true })
+const { data, next, find, canNext } = User.useFind(params)
 
-const { service: usersService } = useUsersConfig()
-usersService.on('created', async () => {
+User.on('created', async () => {
   await loadUserList()
 })
 
@@ -51,7 +59,6 @@ onMounted(async () => {
 
 async function loadUserList () {
   users.length = 0
-  // @ts-expect-error foo
   await find({ query: { $limit: 250 } })
   users.push(...data.value)
   // eslint-disable-next-line

@@ -79,7 +79,8 @@
 </template>
 
 <script setup lang="ts">
-const User = useUserModel()
+const { api } = useFeathers()
+const User = api.service('users')
 const router = useRouter()
 const authStore = useAuthStore()
 const state = reactive({
@@ -92,8 +93,8 @@ const submit = async () => {
   await authStore.authenticate({ strategy: 'local', ...state })
   redirect()
 }
-const redirect = () => {
-  const redirectTo = authStore.loginRedirect || '/chat'
+const redirect = async () => {
+  const redirectTo = (await authStore).loginRedirect || '/chat'
   authStore.loginRedirect = null
   router.push(redirectTo)
 }

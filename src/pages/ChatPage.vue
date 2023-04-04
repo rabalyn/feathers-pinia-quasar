@@ -26,7 +26,8 @@ import UsersList from '../components/UsersList.vue'
 import ChatMessages from '../components/ChatMessages.vue'
 import ChatComposer from '../components/ChatComposer.vue'
 
-const User = useUserModel()
+const { api } = useFeathers()
+const User = api.service('users')
 
 const usersTotal = ref(0)
 

@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="messages"
     class="q-ml-md"
     style="height: 85vh;"
   >
@@ -26,33 +27,56 @@
 </template>
 
 <script setup lang="ts">
+import { Message as TMessage } from 'app/../../feathers-chat-ts/src/client'
 import { QScrollArea } from 'quasar'
-import { UseFindParams } from 'feathers-pinia/dist/use-find'
 
-const Message = useMessageModel()
 const auth = useAuthStore()
+const { api } = useFeathers()
+const Message = api.service('messages')
 
 const userId = auth.user?.id
 const scrollAreaRef: Ref<QScrollArea | undefined> = ref()
 
 const messageTotalCount = ref(0)
-const messageParams: UseFindParams = reactive({ query: { $sort: { createdAt: -1 }, $limit: 25 } })
-const { find: findMessages, latestQuery } = Message.useFind(messageParams)
-
-const { service: messageService } = useMessagesConfig()
-messageService.on('created', () => {
-  findMessages()
-  scroll()
-  messageTotalCount.value++
+const messageParams = computed(() => {
+  return {
+    query: {
+      $skip: 0,
+      $limit: 25,
+      $sort: { createdAt: -1 }
+    }
+  }
 })
 
-const messages = computed(() => latestQuery.value?.response?.data?.reverse())
+const info = Message.useFind(messageParams, { paginateOnServer: false, immediate: true })
+const { find, allLocalData, cachedQuery, paramsWithPagination, total } = info
 
+console.log('allLocalData', allLocalData)
+console.log('cachedQuery', cachedQuery)
+console.log('paramsWithPagination', paramsWithPagination)
+console.log('total', total)
+
+const messages = computed(() => Message.findInStore({ query: { $sort: { createdAt: -1 } } }).data.value.reverse())
+
+// const counter = ref(0)
+setInterval(async () => {
+  // Message.create({ text: `hello from me for the ${counter.value++} time` })
+  find(messageParams)
+  scroll()
+}, 2500)
+
+Message.on('created', async (x: TMessage) => {
+  console.log('on: new message', x)
+  find(messageParams)
+  scroll()
+  messageTotalCount.value = (await Message.count()).total
+})
 onMounted(async () => {
   setTimeout(() => {
     scroll()
   }, 50)
-  findMessages()
+
+  await find(messageParams)
   messageTotalCount.value = (await Message.count()).total
 })
 

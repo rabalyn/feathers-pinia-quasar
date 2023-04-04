@@ -1,9 +1,16 @@
 import { createClient } from '../../../feathers-chat-ts/src/client'
+import { createVueClient } from 'feathers-pinia'
 import socketio from '@feathersjs/socketio-client'
 import io from 'socket.io-client'
+import { pinia } from './modules/pinia'
 
-const host = import.meta.env.VITE_MYAPP_API_URL as string || 'http://localhost:3030'
+const host = 'http://localhost:3030'
 const socket = io(host, { transports: ['websocket'] })
 
-// @ts-expect-error initial testing
-export const api = createClient(socketio(socket), { storage: window.localStorage })
+export const feathersClient = createClient(socketio(socket), { storage: window.localStorage })
+export const api = createVueClient(feathersClient, {
+  pinia,
+  idField: 'id',
+  whitelist: ['$regex'],
+  paramsForServer: []
+})

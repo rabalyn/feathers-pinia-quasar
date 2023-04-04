@@ -37,9 +37,8 @@ export default route(function (/* { store, ssrContext } */) {
       return true
     }
     const authStore = useAuthStore()
-
-    // always resolves. no need to catch
     await authStore.getPromise()
+    await authStore.reAuthenticate()
 
     // check auth and apply login redirect
     if (!authStore.user) {

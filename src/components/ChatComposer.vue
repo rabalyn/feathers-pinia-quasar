@@ -22,10 +22,9 @@
 </template>
 
 <script setup lang="ts">
-const Message = useMessageModel()
-const message = Message({
-  text: ''
-})
+const { api } = useFeathers()
+const Message = api.service('messages')
+const message = Message.new({ text: '' })
 
 async function sendMessage () {
   try {

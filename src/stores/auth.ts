@@ -1,21 +1,14 @@
 // stores/auth.ts
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import { useAuth } from 'feathers-pinia'
 
 export const useAuthStore = defineStore('auth', () => {
-  const userStore = useUserStore()
   const { api } = useFeathers()
 
-  const auth = useAuth({
-    api,
-    userStore
-  })
-
-  auth.reAuthenticate()
+  const auth = useAuth({ api, servicePath: 'users' })
 
   return auth
 })
 
-if (import.meta.hot) {
-  // @ts-expect-error initial config
-  import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))
-}
+// @ts-expect-error beta-testing
+if (import.meta.hot) { import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot)) }
