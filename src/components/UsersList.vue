@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { User as TUser } from 'app/../../feathers-chat-ts/src/client'
+import { User as TUser } from 'feathers-chat'
 const { api } = useFeathers()
 
 const User = api.service('users')
