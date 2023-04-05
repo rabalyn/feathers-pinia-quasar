@@ -4,7 +4,7 @@
     class="q-ml-md"
     style="height: 85vh;"
   >
-    Messages ({{ messageTotalCount }}):
+    Messages ({{ total }}):
     <q-scroll-area
       ref="scrollAreaRef"
       class="q-px-md"
@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { Message as TMessage } from 'app/../../feathers-chat-ts/src/client'
 import { QScrollArea } from 'quasar'
 
 const auth = useAuthStore()
@@ -37,47 +36,27 @@ const Message = api.service('messages')
 const userId = auth.user?.id
 const scrollAreaRef: Ref<QScrollArea | undefined> = ref()
 
-const messageTotalCount = ref(0)
 const messageParams = computed(() => {
-  return {
+  const params = {
     query: {
       $skip: 0,
-      $limit: 25,
-      $sort: { createdAt: -1 }
+      // eslint-disable-next-line
+      $sort: { createdAt: -1 } as any,
+      $limit: 25
     }
   }
+  return params
 })
 
-const info = Message.useFind(messageParams, { paginateOnServer: false, immediate: true })
-const { find, allLocalData, cachedQuery, paramsWithPagination, total } = info
-
-console.log('allLocalData', allLocalData)
-console.log('cachedQuery', cachedQuery)
-console.log('paramsWithPagination', paramsWithPagination)
-console.log('total', total)
-
+const { total } = Message.useFind(messageParams, { paginateOnServer: true, immediate: true })
 const messages = computed(() => Message.findInStore({ query: { $sort: { createdAt: -1 } } }).data.value.reverse())
 
-// const counter = ref(0)
-setInterval(async () => {
-  // Message.create({ text: `hello from me for the ${counter.value++} time` })
-  find(messageParams)
-  scroll()
-}, 2500)
+Message.on('created', async () => scroll())
 
-Message.on('created', async (x: TMessage) => {
-  console.log('on: new message', x)
-  find(messageParams)
-  scroll()
-  messageTotalCount.value = (await Message.count()).total
-})
 onMounted(async () => {
   setTimeout(() => {
     scroll()
-  }, 50)
-
-  await find(messageParams)
-  messageTotalCount.value = (await Message.count()).total
+  }, 150)
 })
 
 function scroll () {
