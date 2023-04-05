@@ -6,14 +6,12 @@
       @submit="submit"
     >
       <q-card
-        dark
         bordered
-        color="dark"
       >
         <q-card-section>
           <i
             alt=""
-            class="h-32 w-32 block mx-auto i-logos-feathersjs invert"
+            class="h-32 w-32 block mx-auto i-logos-feathersjs"
           />
           <div class="text-h2 text-bold">
             Feathers Chat
@@ -21,7 +19,6 @@
         </q-card-section>
 
         <q-separator
-          dark
           inset
         />
 
