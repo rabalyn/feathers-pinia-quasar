@@ -16,6 +16,15 @@
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
+
+        <q-btn
+          v-if="user?.id"
+          class="q-ml-md"
+          color="white"
+          flat
+          icon="logout"
+          @click="logout"
+        />
       </q-toolbar>
     </q-header>
 
@@ -49,12 +58,11 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
 import EssentialLink from 'components/EssentialLink.vue'
 import DarkmodeToggle from 'src/components/DarkmodeToggle.vue'
 
-const linksList = [
+const essentialLinks = [
   {
     title: 'Login',
     caption: 'Login Form',
@@ -111,24 +119,19 @@ const linksList = [
   }
 ]
 
-export default defineComponent({
-  name: 'MainLayout',
+const router = useRouter()
+const authStore = useAuthStore()
+const user = computed(() => authStore.user)
 
-  components: {
-    EssentialLink,
-    DarkmodeToggle
-  },
+const leftDrawerOpen = ref(false)
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+function toggleLeftDrawer () {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
 
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+async function logout () {
+  await authStore.logout()
+  router.push('/login')
+  window.location.reload()
+}
 </script>
