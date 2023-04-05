@@ -15,7 +15,7 @@ Add these files to integrate feathers-pinia v2.pre17:
 [src/feathers-client.ts:](./src/feathers-client.ts)
 
 ```ts
-import { createClient } from '../../../feathers-chat-ts/src/client'  // exported client from feathers-api
+import { createClient } from 'feathers-chat'  // exported client from feathers-api
 import socketio from '@feathersjs/socketio-client'
 import io from 'socket.io-client'
 
@@ -155,7 +155,7 @@ export const useFeathersPiniaConfig = () => {
 
 ```ts
 import type { ModelInstance } from 'feathers-pinia'
-import type { User, UserData, UserQuery } from '../../../../feathers-chat-ts' // exported client from feathers-api
+import type { User, UserData, UserQuery } from 'feathers-chat' // exported client from feathers-api
 
 export const useUsersConfig = () => {
   const { pinia, idField, whitelist } = useFeathersPiniaConfig()
