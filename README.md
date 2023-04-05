@@ -70,6 +70,8 @@ export const api = createPiniaClient(feathersClient, {
 
 ### quasar.config
 
+[quasar.config.js](./quasar.config.js)
+
 add 'feathers-pinia' to boot array:
 
 ```ts
