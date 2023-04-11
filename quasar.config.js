@@ -10,6 +10,7 @@
 
 const { configure } = require('quasar/wrappers')
 const path = require('path')
+const { feathersPiniaAutoImport } = require('feathers-pinia')
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -87,7 +88,8 @@ module.exports = configure(function (/* ctx */) {
             'vue-i18n',
             'vue/macros',
             '@vueuse/head',
-            '@vueuse/core'
+            '@vueuse/core',
+            feathersPiniaAutoImport
           ],
           dts: 'src/auto-imports.d.ts',
           dirs: ['src/composables', 'src/models', 'src/stores'],
