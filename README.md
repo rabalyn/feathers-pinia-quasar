@@ -87,6 +87,8 @@ add vite plugins:
 
 ```ts
 ...
+const { feathersPiniaAutoImport } = require('feathers-pinia')
+...
       vitePlugins: [
         ['unplugin-auto-import/vite', {
           imports: [
@@ -95,7 +97,8 @@ add vite plugins:
             'vue-i18n',
             'vue/macros',
             '@vueuse/head',
-            '@vueuse/core'
+            '@vueuse/core',
+            feathersPiniaAutoImport
           ],
           dts: 'src/auto-imports.d.ts',
           dirs: ['src/composables', 'src/models', 'src/stores'],
