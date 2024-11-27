@@ -12,10 +12,23 @@ Add / edit the files mentioned in the [Setup feathers-pinia section](#setup-feat
 
 ## Install the dependencies
 
+Moved to [feathers-chat - prerequisite BACKEND](#feathers-chat - prerequisite BACKEND)
+
+## feathers-chat - prerequisite BACKEND
+
+To run this project we need a [feathers-chat](https://github.com/feathersjs/feathers-chat) backend. Setup instructions
+can be found in the linked project.
+It is prerequisite to generate a bundled client from our backend to make the imported client in [src/feathers-client.ts:](./src/feathers-client.ts) work:
+
 ```bash
-yarn
-# or
-npm install
+cd feathers-chat
+npm run install         # install dependencies
+npm run migrate         # generate sqlite db file
+npm run bundle:client   # generate bundled client
+npm run dev             # start the api server on http://localhost:3030
+
+cd ../feathers-pinia-quasar
+npm i                   # install our dependencies
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -212,7 +225,7 @@ used in your components.
       <pre>{{ user }}</pre>
     </div>
     <div class="row">
-      <pre>we have {{ total }} messages.</pre>
+      <pre>we have {{ $messages.total }} messages.</pre>
     </div>
     <div class="row">
       <pre>{{ messages }}</pre>
@@ -230,7 +243,7 @@ const messageParams = computed(() => {
   return { query: {} }
 })
 
-const { total } = Message.useFind(messageParams, { paginateOnServer: true, immediate: true })
+const $messages = Message.useFind(messageParams, { paginateOn: 'hybrid', immediate: true })
 const messages = computed(() => Message.findInStore({ query: {} }).data.value.reverse())
 </script>
 ```

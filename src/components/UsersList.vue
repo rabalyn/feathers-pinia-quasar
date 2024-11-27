@@ -36,7 +36,10 @@ const User = api.service('users')
 
 const userlistRef = ref()
 const users: TUser[] = reactive([])
-const sortedUsers = computed(() => users.sort((a, b) => a.email < b.email ? -1 : 1))
+const sortedUsers = computed(() => {
+  const x = users
+  return x.sort((a, b) => a.email < b.email ? -1 : 1)
+})
 
 const params = computed(() => {
   return {
@@ -47,8 +50,8 @@ const params = computed(() => {
   }
 })
 // Set page size with $limit in the initial query
-const { data, next, find, canNext } = User.useFind(params)
-
+const $users = User.useFind(params)
+// { data, next, find, canNext }
 User.on('created', async () => {
   await loadUserList()
 })
@@ -59,12 +62,12 @@ onMounted(async () => {
 
 async function loadUserList () {
   users.length = 0
-  await find({ query: { $limit: 250 } })
-  users.push(...data.value)
-  // eslint-disable-next-line
-  while (canNext.value) {
-    await next()
-    users.push(...data.value)
+  await $users.find({ query: { $limit: 250 } })
+  users.push(...$users.data)
+
+  while ($users.canNext) {
+    await $users.next()
+    users.push(...$users.data)
   }
 }
 </script>

@@ -4,7 +4,7 @@
       <pre>{{ user }}</pre>
     </div>
     <div class="row">
-      <pre>we have {{ total }} messages.</pre>
+      <pre>we have {{ $messages.total }} messages.</pre>
     </div>
     <div class="row">
       <pre>{{ messages }}</pre>
@@ -22,6 +22,6 @@ const messageParams = computed(() => {
   return { query: {} }
 })
 
-const { total } = Message.useFind(messageParams, { paginateOnServer: true, immediate: true })
+const $messages = Message.useFind(messageParams, { paginateOn: 'hybrid', immediate: true })
 const messages = computed(() => Message.findInStore({ query: {} }).data.value.reverse())
 </script>

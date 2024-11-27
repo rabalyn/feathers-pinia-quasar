@@ -4,7 +4,7 @@
     class="q-ml-md"
     style="height: 85vh;"
   >
-    Messages ({{ total }}):
+    Messages ({{ $messages.total }}):
     <q-scroll-area
       ref="scrollAreaRef"
       class="q-px-md"
@@ -48,8 +48,8 @@ const messageParams = computed(() => {
   return params
 })
 
-const { total } = Message.useFind(messageParams, { paginateOnServer: true, immediate: true })
-const messages = computed(() => Message.findInStore({ query: { $sort: { createdAt: -1 } } }).data.value.reverse())
+const $messages = Message.useFind(messageParams, { paginateOn: 'hybrid', immediate: true })
+const messages = computed(() => Message.findInStore({ query: { $sort: { createdAt: -1 } } }).data.reverse())
 
 Message.on('created', async () => scroll())
 
@@ -60,7 +60,7 @@ onMounted(async () => {
 })
 
 function scroll () {
-  if (scrollAreaRef === undefined) return
+  if (scrollAreaRef.value === undefined) return
 
   if (scrollAreaRef.value) {
     scrollAreaRef.value.setScrollPercentage('vertical', 105, 300)
