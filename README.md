@@ -31,6 +31,9 @@ cd ../feathers-pinia-quasar
 npm i                   # install our dependencies
 ```
 
+If you enjoy `npm link/pack` more take a look at [this repository](https://github.com/HarisHashim/qfp-starter/tree/main) that made it work with that setup.
+Thanks to @HarisHashim for debugging this and making it work!
+
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
